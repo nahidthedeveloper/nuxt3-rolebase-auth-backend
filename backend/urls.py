@@ -4,7 +4,8 @@ from rest_framework import routers
 from django.conf import settings
 from django.conf.urls.static import static
 
-from authentication.viewset import AuthenticationViewSet, UserViewSet
+from authentication.viewset import AuthenticationViewSet
+from users.viewset import UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'auth', AuthenticationViewSet, basename='authentication')

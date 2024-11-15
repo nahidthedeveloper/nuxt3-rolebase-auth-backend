@@ -3,9 +3,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.utils import timezone
-from authentication.serializer import SignupSerializer, LoginSerializer, EmptySerializer, UserSerializer
-from authentication.models import Account
-from rest_framework.permissions import IsAdminUser
+from authentication.serializer import SignupSerializer, LoginSerializer, EmptySerializer
+
 
 class AuthenticationViewSet(viewsets.ModelViewSet):
     serializer_class = []
@@ -48,17 +47,3 @@ class AuthenticationViewSet(viewsets.ModelViewSet):
             }, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-    
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = Account.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [IsAdminUser]
-
-
-    def list(self, request, *args, **kwargs):
-        self.check_permissions(request)
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)

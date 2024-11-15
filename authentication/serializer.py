@@ -7,22 +7,6 @@ from django.core.exceptions import ValidationError
 class EmptySerializer(serializers.Serializer):
     pass
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Account
-        fields = ['id', 'username', 'email', 'role']
-        
-        
-    def update(self, instance, validated_data):
-        instance.username = validated_data.get('username', instance.username)
-        instance.email = validated_data.get('email', instance.email)
-        instance.role = validated_data.get('role', instance.role)
-        password = validated_data.get('password', None)
-        if password:
-            instance.set_password(password)
-        instance.save()
-        return instance
-
 
 class SignupSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
