@@ -37,7 +37,7 @@ class UserViewSet(viewsets.ModelViewSet):
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-    
+
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -47,8 +47,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         if request.method != "PATCH":
             raise MethodNotAllowed("Only PATCH method is allowed for updates.")
-        
-        if not request.user.has_perm('authentication.change_account') or not request.user.is_superuser:
+
+        if not (request.user.has_perm('authentication.change_account') or request.user.is_superuser):
             return Response(
                 {"detail": "You do not have permission to perform this action."},
                 status=status.HTTP_403_FORBIDDEN,
