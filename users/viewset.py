@@ -48,7 +48,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if request.method != "PATCH":
             raise MethodNotAllowed("Only PATCH method is allowed for updates.")
         
-        if not request.user.has_perm('authentication.change_account'):
+        if not request.user.has_perm('authentication.change_account') or not request.user.is_superuser:
             return Response(
                 {"detail": "You do not have permission to perform this action."},
                 status=status.HTTP_403_FORBIDDEN,
