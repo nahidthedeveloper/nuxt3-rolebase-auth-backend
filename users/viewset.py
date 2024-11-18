@@ -14,10 +14,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
 
     def get_permissions(self):
-        if self.action == "list":
+        if self.action in ["list", "retrieve"]:
             return [CanViewUsers()]
-        # elif self.action == "update":
-        #     return [CanChangeUsers()]
+        elif self.action in ["update", "partial_update"]:
+            return [CanChangeUsers()]
         elif self.action == "destroy":
             return [CanDeleteUsers()]
         elif self.action == "create":
@@ -47,12 +47,6 @@ class UserViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         if request.method != "PATCH":
             raise MethodNotAllowed("Only PATCH method is allowed for updates.")
-
-        if not (request.user.has_perm('authentication.change_account') or request.user.is_superuser):
-            return Response(
-                {"detail": "You do not have permission to perform this action."},
-                status=status.HTTP_403_FORBIDDEN,
-            )
 
         instance = self.get_object()
 
