@@ -24,3 +24,18 @@ class TodosSerializer(serializers.ModelSerializer):
         validated_data['created_at'] = datetime.now()
         validated_data['updated_at'] = datetime.now()
         return Todos.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        request = self.context.get('request')
+        if not request or not request.user:
+            raise serializers.ValidationError("User information is missing.")
+        
+        if instance.user != request.user:
+            raise serializers.ValidationError("You do not have permission to update this todo.")
+
+        todo = validated_data.get('todo', instance.todo)
+        instance.todo = todo
+        instance.updated_at = datetime.now()
+        instance.save()
+        return instance
+
