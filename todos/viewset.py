@@ -43,17 +43,15 @@ class TodosView(viewsets.ModelViewSet):
         instance = self.get_object()
         if instance.user != request.user:
             raise PermissionDenied("You do not have permission to update this Todo.")
-        response = super().update(request, *args, **kwargs)
-        response.data['detail'] = 'Todo updated successfully.'
-        return response
+        super().update(request, *args, **kwargs)  # Perform the update
+        return Response({'detail': 'Todo updated successfully.'}, status=200)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance.user != request.user:
             raise PermissionDenied("You do not have permission to delete this Todo.")
-        response = super().destroy(request, *args, **kwargs)
-        response.data['detail'] = 'Todo deleted successfully.'
-        return response
+        super().destroy(request, *args, **kwargs)  # Perform the delete
+        return Response({'detail': 'Todo deleted successfully.'}, status=200)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
