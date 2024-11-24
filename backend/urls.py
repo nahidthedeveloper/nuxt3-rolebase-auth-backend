@@ -6,10 +6,12 @@ from django.conf.urls.static import static
 
 from authentication.viewset import AuthenticationViewSet
 from users.viewset import UserViewSet
+from todos.viewset import TodosView
 
 router = routers.DefaultRouter()
 router.register(r'auth', AuthenticationViewSet, basename='authentication')
 router.register(r'user', UserViewSet, basename='user')
+router.register(r'todos', TodosView, basename='todos')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

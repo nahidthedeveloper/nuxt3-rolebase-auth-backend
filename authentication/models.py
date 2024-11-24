@@ -11,7 +11,6 @@ class Account(AbstractUser):
     ROLE_CHOICES = (
         ("admin", "Admin"),
         ("user", "User"),
-        ("manager", "Manager"),
     )
 
     email = models.EmailField(max_length=100, unique=True)

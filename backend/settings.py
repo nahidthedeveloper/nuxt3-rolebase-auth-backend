@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # user app
     'authentication',
     'users',
+    'todos',
 
 ]
 

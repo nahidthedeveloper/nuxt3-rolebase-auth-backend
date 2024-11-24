@@ -12,22 +12,22 @@ class IsSuperuserOrHasPermission(BasePermission):
         )
 
 
-class CanViewUsers(IsSuperuserOrHasPermission):
+class CanViewTodos(IsSuperuserOrHasPermission):
     def __init__(self):
-        super().__init__("authentication.view_account")
+        super().__init__("todos.view_todos")
 
 
-class CanChangeUsers(IsSuperuserOrHasPermission):
+class CanChangeTodos(IsSuperuserOrHasPermission):
     def __init__(self):
-        super().__init__("authentication.change_account")
+        super().__init__("todos.change_todos")
 
 
-class CanDeleteUsers(IsSuperuserOrHasPermission):
+class CanDeleteTodos(IsSuperuserOrHasPermission):
     def __init__(self):
-        super().__init__("authentication.delete_account")
+        super().__init__("todos.delete_todos")
 
 
-class CanAddUsers(IsSuperuserOrHasPermission):
+class CanAddTodos(IsSuperuserOrHasPermission):
     def __init__(self):
-        super().__init__("authentication.add_account")
+        super().__init__("todos.add_todos")
 
