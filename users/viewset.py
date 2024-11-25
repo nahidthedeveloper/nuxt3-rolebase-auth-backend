@@ -27,7 +27,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return UserSerializer
 
     def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
+        queryset = Account.objects.exclude(is_superuser=True)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
